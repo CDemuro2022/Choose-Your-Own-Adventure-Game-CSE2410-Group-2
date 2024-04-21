@@ -59,6 +59,10 @@ class Button:
 
     def check_click(self):
         return bool(self.hovering)
+    
+    def set_y(self, y):
+        self.y = y - self.height / 2
+        self.pos = (self.x, self.y)
 
 
 class Text_box():

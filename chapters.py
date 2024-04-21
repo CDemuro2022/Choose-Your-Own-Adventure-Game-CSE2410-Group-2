@@ -9,14 +9,11 @@ from GUI.GUI import GUIInstance
 
 colorama.init(convert=True)
 
-# start the game
-
-# NOT CALLED ANYWHERE
-def start():
+def chapter_into_the_unknown():
     if GUIInstance.ask_question("You are on a dirt road. Which way do you want to go left or right?", "Left", "Right"):
-        random.choice(my_list)()
+        random.choice(chapter_list)()
     else:
-        random.choice(my_list)()
+        random.choice(chapter_list)()
 
 
 def chapter_river():
@@ -91,11 +88,11 @@ def chapter_mountain():
             else:
                 # 3. Back
                 GUIInstance.text_until_enter("You climb down safely.")
-                random.choice(my_list)()
+                random.choice(chapter_list)()
 
     else:
         # 1. No
-        random.choice(my_list)()
+        random.choice(chapter_list)()
 
 
 def chapter_lake():
@@ -141,10 +138,10 @@ def game_over(message: str = None, *, win=False):
 
     if GUIInstance.ask_question("Thanks for playing!", "Play Again", "Quit"):
         # Play again
-        random.choice(my_list)()
+        GUIInstance.chapter_directory()
     else:
         # Quit
         GUIInstance.exit_func()
 
 
-my_list = [chapter_bridge, chapter_lake, chapter_mountain, chapter_river]
+chapter_list = [chapter_bridge, chapter_lake, chapter_mountain, chapter_river, chapter_into_the_unknown]

@@ -111,6 +111,24 @@ class GUI:
 
             self.screen.blit(_text, (center_x, center_y))
 
+    # private function
+    def __render_text_general(self, texts: list, y: int):
+        """Render list of pygame text renders in the top of the screen"""
+        # Get total height of text elements rendered. Sum all text heights and add the spaces between them
+        total_height = sum(
+            x.get_size()[1] for x in texts
+        ) + self.space_between_text * (len(texts) - 1)
+
+        # Loop through every text element and render it
+        for _i, _text in enumerate(texts):
+            _text_width, _text_height = _text.get_size()
+
+            # Get the position to render it in the center of screen
+            center_x = self.screen_width / 2 - _text_width / 2
+            text_y = y
+
+            self.screen.blit(_text, (center_x, text_y))
+
 
     def ask_question(self, question: str, left_btn_txt: str, right_btn_txt: str) -> bool:
         """Ask a question with two answers.\n
@@ -240,6 +258,69 @@ class GUI:
             pygame.display.update()
 
         self.text_until_enter(f"Welcome {player_name} to this adventure!")
+
+    def chapter_directory(self):
+        if not self.run_gui:
+            print("no gui is not supported for chapter_directory")
+            random.choice(chapters.chapter_list)()
+        
+        text_renders = self.__seperate_text_to_rows("Chapter Directory", self.screen_width - 50, self.font)
+
+        #create buttons for each chapter in chapter_list
+        chapter_num = len(chapters.chapter_list)
+        chapter_button = {}
+        chapter_button_list = []
+        for i in range(chapter_num):
+            #create button for each chapter
+            chapter_name = chapters.chapter_list[i].__name__[8:].capitalize().replace("_"," ")
+            chapter_button[i] = Button(self.screen_width / 2 , 275 + (i-1) * 110, 600, 60, text=chapter_name, font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+            chapter_button_list.append(chapter_button[i])
+
+
+        #change content view size based on number of chapters available in chapter_list
+        if chapter_num < 5:
+            contentView = pygame.transform.smoothscale(pygame.image.load("assets/images/landscape.png"), (self.screen_height* 1.778, self.screen_height))
+            CONTENT_HEIGHT = self.screen_height  # Height of content surface
+        else:
+            contentView = pygame.transform.smoothscale(pygame.image.load("assets/images/landscape.png"), (self.screen_height* 1.778, self.screen_height+(chapter_num-4)*110))
+            CONTENT_HEIGHT = self.screen_height+(chapter_num-4)*110  # Height of content surface
+
+        #scroll variables
+        scroll_y = 0 # Initial scroll position
+        SCROLL_SPEED = 30  # Speed of scrolling
+        original_button_y = [btn.y for btn in chapter_button_list] #store original y positions of buttons
+        
+        while True:
+            self.screen.blit(contentView, (0, scroll_y))
+
+            i = 0 # index for chapter_button_list
+            for btn in chapter_button_list:
+                btn.set_y(original_button_y[i] + scroll_y)
+                btn.draw(self.screen)
+                btn.check_hover(pygame.mouse.get_pos())
+                i += 1 #increment index
+            i = 0 #reset index
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.exit_func()
+
+                if (
+                    event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]
+                ):
+                    for i in range(chapter_num):
+                        if chapter_button[i].check_click():
+                            chapters.chapter_list[i]()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 4:  # Scroll up
+                        scroll_y = min(scroll_y + SCROLL_SPEED, 0)
+                    elif event.button == 5:  # Scroll down
+                        scroll_y = max(scroll_y - SCROLL_SPEED, -CONTENT_HEIGHT + self.screen_height)
+            
+
+            self.__render_text_general(text_renders,10 + scroll_y)
+            pygame.display.update()
+        
 
     def __ask_question_no_gui(self, question: str, first: str, second: str, color_before: Fore=None, color_after: Fore=None) -> bool:
         while True:

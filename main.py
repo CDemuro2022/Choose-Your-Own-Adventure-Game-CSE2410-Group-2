@@ -62,7 +62,9 @@ def main():
         GUIInstance.set_params_no_gui()
 
     GUIInstance.start_screen()
-    random.choice(my_list)()
+
+    #send to chapter directory here
+    GUIInstance.chapter_directory()
 
 
 if __name__ == "__main__":

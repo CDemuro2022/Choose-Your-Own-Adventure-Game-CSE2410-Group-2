@@ -167,7 +167,7 @@ def tropicalfever(print_song_name=True):
     if print_song_name:
         print(f"{Fore.RED}Currently Playing - Tropical Fever by Luke Bergs & LiQWYD")
 
-    return 
+    return sound
 
 def happyadricanvillage(print_song_name=True):
     import os
