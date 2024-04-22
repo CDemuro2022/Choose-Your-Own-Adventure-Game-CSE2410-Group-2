@@ -15,6 +15,9 @@ class GUI:
         self.space_between_text = 60
         self.music_toggle_size = 88
 
+    userCharacter = characterSprites(50,100)
+    userCharacter.rect.x = 100
+    userCharacter.rect.y = 100
 
     def set_params_no_gui(self):
         self.run_gui = False
@@ -168,6 +171,11 @@ class GUI:
                 btn.draw(self.screen)
                 btn.check_hover(pygame.mouse.get_pos())
 
+            GUI.userCharacter.controlMove()
+            
+            GUI.userCharacter.draw(self.screen, GUI.userCharacter.bodyRGB, GUI.userCharacter.hairRGB, GUI.userCharacter.shirtRGB)
+
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.exit_func()
@@ -270,9 +278,6 @@ class GUI:
         self.text_until_enter(f"Welcome {player_name} to this adventure!")
 
     def spriteCustomizeScreen(self):
-        userCharacter = characterSprites(50,100)
-        userCharacter.rect.x = 100
-        userCharacter.rect.y = 100
         if not self.run_gui:
             print("no gui is supported for sprite customization")
             return 
@@ -310,9 +315,9 @@ class GUI:
             submit.draw(self.screen)
             submit.check_hover(pygame.mouse.get_pos())
             
-            bodyChoice = self.__seperate_text_to_rows(userCharacter.bodyColorSelected, self.screen_width/2, self.small_font)
-            hairChoice = self.__seperate_text_to_rows(userCharacter.hairColorSelected, self.screen_width/2, self.small_font)
-            shirtChoice = self.__seperate_text_to_rows(userCharacter.shirtColorSelected, self.screen_width/2, self.small_font)
+            bodyChoice = self.__seperate_text_to_rows(GUI.userCharacter.bodyColorSelected, self.screen_width/2, self.small_font)
+            hairChoice = self.__seperate_text_to_rows(GUI.userCharacter.hairColorSelected, self.screen_width/2, self.small_font)
+            shirtChoice = self.__seperate_text_to_rows(GUI.userCharacter.shirtColorSelected, self.screen_width/2, self.small_font)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -320,42 +325,42 @@ class GUI:
 
                 if( event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]):
                         if bodyRight.check_click():
-                            userCharacter.bodyIt += 1
-                            if userCharacter.bodyIt > 10: 
-                                userCharacter.bodyIt = 0
+                            GUI.userCharacter.bodyIt += 1
+                            if GUI.userCharacter.bodyIt > 10: 
+                                GUI.userCharacter.bodyIt = 0
 
-                            userCharacter.bodyColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.bodyIt]
+                            GUI.userCharacter.bodyColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.bodyIt]
                         if bodyLeft.check_click():
-                            userCharacter.bodyIt -= 1
-                            if userCharacter.bodyIt < 0:
-                                userCharacter.bodyIt = 10
+                            GUI.userCharacter.bodyIt -= 1
+                            if GUI.userCharacter.bodyIt < 0:
+                                GUI.userCharacter.bodyIt = 10
 
-                            userCharacter.bodyColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.bodyIt]
+                            GUI.userCharacter.bodyColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.bodyIt]
                         if hairRight.check_click():
-                            userCharacter.hairIt += 1 
-                            if userCharacter.hairIt > 10:
-                                userCharacter.hairIt = 0
+                            GUI.userCharacter.hairIt += 1 
+                            if GUI.userCharacter.hairIt > 10:
+                                GUI.userCharacter.hairIt = 0
 
-                            userCharacter.hairColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.hairIt]
+                            GUI.userCharacter.hairColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.hairIt]
                         if hairLeft.check_click():
-                            userCharacter.hairIt -= 1
-                            if userCharacter.hairIt < 0: 
-                                userCharacter.hairIt = 10
+                            GUI.userCharacter.hairIt -= 1
+                            if GUI.userCharacter.hairIt < 0: 
+                                GUI.userCharacter.hairIt = 10
 
-                            userCharacter.hairColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.hairIt]
+                            GUI.userCharacter.hairColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.hairIt]
                         if shirtRight.check_click(): 
-                            userCharacter.shirtIt += 1
-                            if userCharacter.shirtIt > 10: 
-                                userCharacter.shirtIt = 0
+                            GUI.userCharacter.shirtIt += 1
+                            if GUI.userCharacter.shirtIt > 10: 
+                                GUI.userCharacter.shirtIt = 0
                             
-                            userCharacter.shirtColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.shirtIt]
+                            GUI.userCharacter.shirtColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.shirtIt]
 
                         if shirtLeft.check_click(): 
-                            userCharacter.shirtIt -= 1
-                            if userCharacter.shirtIt < 0: 
-                                userCharacter.shirtIt = 10
+                            GUI.userCharacter.shirtIt -= 1
+                            if GUI.userCharacter.shirtIt < 0: 
+                                GUI.userCharacter.shirtIt = 10
                             
-                            userCharacter.shirtColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.shirtIt]
+                            GUI.userCharacter.shirtColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.shirtIt]
                         if submit.check_click(): 
                             GUIInstance.chapter_directory()
                              
@@ -411,14 +416,6 @@ class GUI:
                 btn.check_hover(pygame.mouse.get_pos())
                 i += 1 #increment index
             i = 0 #reset index
-
-            drawnCharacter = characterSprites(50,100)
-            drawnCharacter.rect.x = 100
-            drawnCharacter.rect.y = 100
-
-            drawnCharacter.controlMove()
-            
-            drawnCharacter.draw(self.screen, drawnCharacter.bodyRGB, drawnCharacter.hairRGB, drawnCharacter.shirtRGB)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
