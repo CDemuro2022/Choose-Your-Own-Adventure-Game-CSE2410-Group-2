@@ -2,13 +2,15 @@ import pygame
 pygame.init()
 
 class Button:
-    def __init__(self, x, y, width, height, bg_color=(120,120,120), hover_color=(150,150,150), text="Text", text_color=(0,0,0), font_size=18, center_text = True, border=0, border_color=(0,0,0), font=None):
+    def __init__(self, x, y, width, height, bg_color=(120, 120, 120), hover_color=(150, 150, 150),
+                 text="Text", text_color=(0, 0, 0), font_size=18, center_text=True,long = False, border=0,
+                 border_color=(0, 0, 0), font=None):
         self.x = x - width / 2
         self.y = y - height / 2
         self.width = width
         self.height = height
         self.pos = (self.x, self.y)
-        self.size = (width,height)
+        self.size = (width, height)
         self.image = pygame.Surface(self.size)
         self.bg_color = bg_color
         self.hover_color = hover_color
@@ -19,9 +21,25 @@ class Button:
         self.text_color = text_color
         self.font_size = font_size
         self.center_text = center_text
+        self.long = long
         self.border = border
         self.border_color = border_color
+        self.update_text_font()
 
+    def update_text_font(self):
+        if len(self.text) > 10 and self.width <= 200:
+            self.long = True
+        lines = self.text.split('\n')
+        if len(lines) != 1:
+            max_width = self.width - 2 * self.border
+            max_height = self.height - 2 * self.border
+            new_font_size = self.font_size
+            font = pygame.font.Font(None, new_font_size)
+            for line in lines:
+                while font.size(line)[0] > max_width or font.size(line)[1] > max_height:
+                    new_font_size -= 1
+                    font = pygame.font.Font(None, new_font_size)
+            self.font = font
 
     def draw(self, screen):
         if self.hovering:
@@ -29,37 +47,48 @@ class Button:
                 self.image.fill(self.hover_color)
             else:
                 self.image.fill(self.border_color)
-                pygame.draw.rect(self.image, self.hover_color, (self.border, self.border, self.width-self.border*2, self.height-self.border*2))
-
+                pygame.draw.rect(self.image, self.hover_color, (self.border, self.border,
+                                                                self.width - self.border * 2,
+                                                                self.height - self.border * 2))
         elif self.border == 0:
             self.image.fill(self.bg_color)
         else:
             self.image.fill(self.border_color)
-            pygame.draw.rect(self.image, self.bg_color, (self.border, self.border, self.width-self.border*2, self.height-self.border*2))
+            pygame.draw.rect(self.image, self.bg_color, (self.border, self.border,
+                                                          self.width - self.border * 2,
+                                                          self.height - self.border * 2))
 
-        #text        
-        text = self.font.render(self.text, True, self.text_color)
-        text_width = text.get_width()
-        text_height = text.get_height()
+        # Render text
+        lines = self.text.split('\n')
+        y_offset = 0
+        for line in lines:
+            text_surface = self.font.render(line, True, self.text_color)
+            text_rect = text_surface.get_rect()
+            if self.center_text:
+                if self.long != True:
+                    self.image.blit(text_surface, (self.width//2-text_rect.width//2,self.height//2-text_rect.height//2))
+                else:
+                    text_rect.center = (self.width // 2, 10 + y_offset)
+                    self.image.blit(text_surface, text_rect)
+                    y_offset += text_rect.height
+            else:
+                text_rect.topleft = (self.border + 5, self.height // 2 - text_rect.height // 2 + y_offset)
+                self.image.blit(text_surface, text_rect)
+                y_offset += text_rect.height
 
-        if self.center_text:
-            self.image.blit(text, (self.width//2-text_width//2,self.height//2-text_height//2))
-        else: self.image.blit(text, (self.border+5,self.height//2-text_height//2))
         screen.blit(self.image, self.pos)
-
 
     def check_hover(self, mouse_pos):
         self.hovering = (
-            mouse_pos[0] >= self.x
-            and mouse_pos[0] <= self.x + self.width
-            and mouse_pos[1] >= self.y
-            and mouse_pos[1] <= self.y + self.height
+                mouse_pos[0] >= self.x
+                and mouse_pos[0] <= self.x + self.width
+                and mouse_pos[1] >= self.y
+                and mouse_pos[1] <= self.y + self.height
         )
-
 
     def check_click(self):
         return bool(self.hovering)
-    
+
     def set_y(self, y):
         self.y = y - self.height / 2
         self.pos = (self.x, self.y)

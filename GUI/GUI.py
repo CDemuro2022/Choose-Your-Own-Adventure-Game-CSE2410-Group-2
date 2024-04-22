@@ -35,9 +35,6 @@ class GUI:
             self.font = pygame.font.Font(None, 60)
             self.button_font = pygame.font.Font(None, 40)
             self.small_font = pygame.font.Font(None, 30)
-        self.button_left = Button(screen_width * .25, screen_height * .9, 200, 60, text="LEFT", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        self.button_right = Button(screen_width * .75, screen_height * .9, 200, 60, text="RIGHT", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        self.buttons_lst = [self.button_left, self.button_right]
         self.screen = screen
         self.screen_width, self.screen_height = self.screen.get_size()
 
@@ -101,23 +98,23 @@ class GUI:
             x.get_size()[1] for x in texts
         ) + self.space_between_text * (len(texts) - 1)
 
-        # Loop through every text element and render it
-        for _i, _text in enumerate(texts):
-            _text_width, _text_height = _text.get_size()
+        #To prevent text from being too close to the buttons
+        if len(texts) > 3:
+            self.__render_text_general(texts, 10)
+        else:
+            # Loop through every text element and render it
+            for _i, _text in enumerate(texts):
+                _text_width, _text_height = _text.get_size()
 
-            # Get the position to render it in the center of screen
-            center_x = self.screen_width / 2 - _text_width / 2
-            center_y = (self.screen_height / 2 - _text_height / 2 + 60 * _i) - total_height / 4 # make all texts centered
+                # Get the position to render it in the center of screen
+                center_x = self.screen_width / 2 - _text_width / 2
+                center_y = (self.screen_height / 2 - _text_height / 2 + 60 * _i) - total_height / 4 # make all texts centered
 
-            self.screen.blit(_text, (center_x, center_y))
+                self.screen.blit(_text, (center_x, center_y))
 
     # private function
     def __render_text_general(self, texts: list, y: int):
         """Render list of pygame text renders in the top of the screen"""
-        # Get total height of text elements rendered. Sum all text heights and add the spaces between them
-        total_height = sum(
-            x.get_size()[1] for x in texts
-        ) + self.space_between_text * (len(texts) - 1)
 
         # Loop through every text element and render it
         for _i, _text in enumerate(texts):
@@ -125,34 +122,49 @@ class GUI:
 
             # Get the position to render it in the center of screen
             center_x = self.screen_width / 2 - _text_width / 2
-            text_y = y
+            text_y = y + 60 * _i
 
             self.screen.blit(_text, (center_x, text_y))
 
-
-    def ask_question(self, question: str, left_btn_txt: str, right_btn_txt: str) -> bool:
+    def ask_question(self, question: str, answer_choices: list) -> int:
         """Ask a question with two answers.\n
             RETURNS: If pressed left_button: Return True. If pressed right_button: Return False"""
         if not self.run_gui:
-            return self.__ask_question_no_gui(
-                f"{question} ({left_btn_txt} / {right_btn_txt}) ",
-                left_btn_txt,
-                right_btn_txt,
-                color_before=Fore.GREEN,
-                color_after=Fore.LIGHTMAGENTA_EX,
-            )
+            print("Currently no gui is not supported for this function.")
+            self.chapter_directory()
 
         # Initalize texts and buttons
         text_renders = self.__seperate_text_to_rows(question, self.screen_width - 50, self.font)
-        self.button_left.text = left_btn_txt
-        self.button_right.text = right_btn_txt
+        
+        choice_num = len(answer_choices)
+        choice_button = {}
+        choice_button_list = []
+
+        for i in range(choice_num):
+            #create button for each choice
+            long_choice = False
+            chapter_name = answer_choices[i]
+            if choice_num == 2: #if there are only 2 choices, orient with a left and right button
+                if i == 0:
+                    choice_button[i] = Button(self.screen_width * .25, self.screen_height * .9, 200, 60, text=answer_choices[0], font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+                else:
+                    choice_button[i] = Button(self.screen_width * .75, self.screen_height * .9, 200, 60, text=answer_choices[1], font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+            elif choice_num < 3:
+                choice_button[i] = Button(150 + i*250, self.screen_height * .9, 200, 60, text=chapter_name, font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+            else:
+                if i < 3:
+                    choice_button[i] = Button(150 + i*250, self.screen_height * .75, 200, 60, text=chapter_name, font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+                else:
+                    choice_button[i] = Button(150 + (i-3)*250, self.screen_height * .9, 200, 60, text=chapter_name, font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+
+            choice_button_list.append(choice_button[i])
 
         # Basic pygame window loop
         while True:
             self.screen.blit(self.background, (0, 0))
 
             # Update buttons
-            for btn in self.buttons_lst:
+            for btn in choice_button_list:
                 btn.draw(self.screen)
                 btn.check_hover(pygame.mouse.get_pos())
 
@@ -162,13 +174,11 @@ class GUI:
 
                 # If left mousebutton clicked, check if clicked on a button
                 if (
-                    event.type == pygame.MOUSEBUTTONDOWN
-                    and pygame.mouse.get_pressed()[0]
+                    event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]
                 ):
-                    if self.button_left.check_click():
-                        return True
-                    if self.button_right.check_click():
-                        return False
+                    for i in range(choice_num):
+                        if choice_button[i].check_click():
+                            return i
 
             # Render the text
             self.__render_text_center(text_renders)
