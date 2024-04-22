@@ -317,10 +317,10 @@ class GUI:
                 #             #functionaility
             
             self.__render_text_general(text_renders,10)
-            self.__render_text_general(bodyLabel, 150)
-            self.__render_text_general(hairLabel, 265)
-            self.__render_text_center(shirtLabel, 375)
-            pygame.display.upate()
+            self.__render_text_general(bodyLabel, 115)
+            self.__render_text_general(hairLabel, 225)
+            self.__render_text_general(shirtLabel, 335)
+            pygame.display.update()
 
     def chapter_directory(self):
         if not self.run_gui:
