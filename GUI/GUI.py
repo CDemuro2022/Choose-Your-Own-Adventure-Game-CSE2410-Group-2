@@ -1,4 +1,4 @@
-from GUI.GUIObjects import Button, TextBox, Toggle
+from GUI.GUIObjects import Button, TextBox, Toggle, characterSprites
 import music.musicTimer as musicTimer  # stop music thread in this file
 import chapters
 import sys
@@ -270,7 +270,7 @@ class GUI:
         self.text_until_enter(f"Welcome {player_name} to this adventure!")
 
     def spriteCustomizeScreen(self):
-        userCharacter = self.characterSprites( 50,100)
+        userCharacter = characterSprites(50,100)
         userCharacter.rect.x = 100
         userCharacter.rect.y = 100
         if not self.run_gui:
