@@ -23,6 +23,11 @@ class GUI:
     hairRGB = userCharacter.COLOROPTS[userCharacter.hairColorSelected]
     shirtRGB = userCharacter.COLOROPTS[userCharacter.shirtColorSelected]
 
+    
+    print("Body Color (RGB):", bodyRGB)
+    print("Hair Color (RGB):", hairRGB)
+    print("Shirt Color (RGB):", shirtRGB)
+
     def set_params_no_gui(self):
         self.run_gui = False
 
