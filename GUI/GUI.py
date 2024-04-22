@@ -364,8 +364,8 @@ class GUI:
             self.__render_text_general(hairLabel, 225)
             self.__render_text_general(shirtLabel, 335)
             self.__render_text_general(bodyChoice, 150)
-            self.__render_text_general(shirtChoice, 265)
-            self.__render_text_general(hairChoice, 375)
+            self.__render_text_general(hairChoice, 265)
+            self.__render_text_general(shirtChoice, 375)
             pygame.display.update()
 
     def chapter_directory(self):
