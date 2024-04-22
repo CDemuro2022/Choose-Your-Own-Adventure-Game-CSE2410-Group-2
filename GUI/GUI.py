@@ -268,6 +268,52 @@ class GUI:
             pygame.display.update()
 
         self.text_until_enter(f"Welcome {player_name} to this adventure!")
+    def spriteCustomizeScreen(self)
+        if not self.run_gui:
+            print("no gui is supported for sprite customization")
+            return 
+        
+        text_renders = self.__seperate_text_to_rows("Customize Your Character", self.screen_width-50, self.font)
+
+        bodyRight = Button(600, 275, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        bodyLeft = Button(200, 275, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        hairRight = Button(600, 385, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        hairLeft = Button(200, 385, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        shirtRight = Button(600, 495, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        shirtLeft = Button(200, 495, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        submit = Button(self.screen_width/2, 595, text="submit", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+
+        contentView = pygame.transform.smoothscale(pygame.image.load("assets/images/landscape.png"), (self.screen_height* 1.778, self.screen_height))
+
+        while True: 
+            self.screen.blit(contentView,(0, 0))
+            bodyRight.draw(self.screen)
+            bodyRight.check_hover(pygame.mouse.get_pos())
+            bodyLeft.draw(self.screen)
+            bodyLeft.check_hover(pygame.mouse.get_pos())
+            hairRight.draw(self.screen)
+            hairRight.check_hover(pygame.mouse.get_pos())
+            hairLeft.draw(self.screen)
+            hairLeft.check_hover(pygame.mouse.get_pos())
+            shirtRight.draw(self.screen)
+            shirtRight.check_hover(pygame.mouse.get_pos())
+            shirtLeft.draw(self.screen)
+            shirtLeft.check_hover(pygame.mouse.get_pos())
+            submit.draw(self.screen)
+            submit.check_hover(pygame.mouse.get_pos())
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.exit_func()
+
+                # if (
+                #     event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]
+                # ):
+                #         if bodyRight.check_click():
+                #             #functionaility
+            
+            self.__render_text_general(text_renders,10)
+            pygame.display.update()
 
     def chapter_directory(self):
         if not self.run_gui:
