@@ -177,7 +177,7 @@ class GUI:
 
             GUI.userCharacter.controlMove()
             
-            GUI.userCharacter.draw(self.screen, self.bodyRGB, self.hairRGB, self.shirtRGB)
+            GUI.userCharacter.draw(self.screen, GUI.bodyRGB, GUI.hairRGB, GUI.shirtRGB)
 
 
             for event in pygame.event.get():
