@@ -19,14 +19,6 @@ class GUI:
     userCharacter.rect.x = 100
     userCharacter.rect.y = 100
 
-    bodyRGB = userCharacter.COLOROPTS[userCharacter.bodyColorSelected]
-    hairRGB = userCharacter.COLOROPTS[userCharacter.hairColorSelected]
-    shirtRGB = userCharacter.COLOROPTS[userCharacter.shirtColorSelected]
-
-    
-    print("Body Color (RGB):", bodyRGB)
-    print("Hair Color (RGB):", hairRGB)
-    print("Shirt Color (RGB):", shirtRGB)
 
     def set_params_no_gui(self):
         self.run_gui = False
@@ -182,7 +174,7 @@ class GUI:
 
             GUI.userCharacter.controlMove()
             
-            GUI.userCharacter.draw(self.screen, GUI.bodyRGB, GUI.hairRGB, GUI.shirtRGB)
+            GUI.userCharacter.draw(self.screen, GUI.userCharacter.bodyRGB, GUI.userCharacter.hairRGB, GUI.userCharacter.shirtRGB)
 
 
             for event in pygame.event.get():

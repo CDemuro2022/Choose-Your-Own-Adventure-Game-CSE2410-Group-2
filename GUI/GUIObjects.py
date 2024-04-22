@@ -362,6 +362,15 @@ class characterSprites(pygame.sprite.Sprite):
   hairColorSelected = COLOROPTS_LIST[hairIt]
   shirtColorSelected = COLOROPTS_LIST[shirtIt]
 
+  bodyRGB = COLOROPTS[bodyColorSelected]
+  hairRGB = COLOROPTS[hairColorSelected]
+  shirtRGB = COLOROPTS[shirtColorSelected]
+
+    
+  print("Body Color (RGB):", bodyRGB)
+  print("Hair Color (RGB):", hairRGB)
+  print("Shirt Color (RGB):", shirtRGB)
+
 
   def __init__(self, width, height):
     super().__init__()
@@ -377,13 +386,13 @@ class characterSprites(pygame.sprite.Sprite):
   def controlMove(self):
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-            self.movement(-5, 0)
+            self.movement(-1, 0)
     if keys[pygame.K_RIGHT]:
-            self.movement(5, 0)
+            self.movement(1, 0)
     if keys[pygame.K_UP]:
-            self.movement(0, -5)
+            self.movement(0, -1)
     if keys[pygame.K_DOWN]:
-            self.movement(0, 5)
+            self.movement(0, 1)
 
   def draw(self, screen, body_color, hair_color, shirt_color,):
     pygame.draw.rect(self.image, body_color, [10, 50, 30,40])
