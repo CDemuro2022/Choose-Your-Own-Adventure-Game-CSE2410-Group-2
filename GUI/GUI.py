@@ -278,6 +278,9 @@ class GUI:
         bodyLabel = self.__seperate_text_to_rows("Select Body Color", self.screen_width/2, self.small_font)
         hairLabel = self.__seperate_text_to_rows("Select Hair Color", self.screen_width/2, self.small_font)
         shirtLabel = self.__seperate_text_to_rows("Select Shirt Color", self.screen_width/2, self.small_font)
+        bodyChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
+        hairChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
+        shirtChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
 
         bodyRight = Button(600, 175, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
         bodyLeft = Button(200, 175, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
@@ -320,6 +323,9 @@ class GUI:
             self.__render_text_general(bodyLabel, 115)
             self.__render_text_general(hairLabel, 225)
             self.__render_text_general(shirtLabel, 335)
+            self.__render_text_general(bodyChoice, 150)
+            self.__render_text_general(shirtChoice, 265)
+            self.__render_text_general(hairChoice, 375)
             pygame.display.update()
 
     def chapter_directory(self):
