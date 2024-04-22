@@ -268,20 +268,21 @@ class GUI:
             pygame.display.update()
 
         self.text_until_enter(f"Welcome {player_name} to this adventure!")
-    def spriteCustomizeScreen(self)
+
+    def spriteCustomizeScreen(self):
         if not self.run_gui:
             print("no gui is supported for sprite customization")
             return 
         
         text_renders = self.__seperate_text_to_rows("Customize Your Character", self.screen_width-50, self.font)
 
-        bodyRight = Button(600, 275, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        bodyLeft = Button(200, 275, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        hairRight = Button(600, 385, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        hairLeft = Button(200, 385, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        shirtRight = Button(600, 495, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        shirtLeft = Button(200, 495, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
-        submit = Button(self.screen_width/2, 595, text="submit", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        bodyRight = Button(600, 175, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        bodyLeft = Button(200, 175, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        hairRight = Button(600, 285, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        hairLeft = Button(200, 285, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        shirtRight = Button(600, 395, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        shirtLeft = Button(200, 395, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
+        submit = Button(self.screen_width/2, 495, 200, 60, text="submit", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
 
         contentView = pygame.transform.smoothscale(pygame.image.load("assets/images/landscape.png"), (self.screen_height* 1.778, self.screen_height))
 
