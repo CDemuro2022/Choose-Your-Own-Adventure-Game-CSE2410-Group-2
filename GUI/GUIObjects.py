@@ -355,9 +355,12 @@ class characterSprites(pygame.sprite.Sprite):
         "White":(255, 255, 255), 
         "Brown": (150, 75, 0)
         }
-  bodyColorSelected = COLOROPTS_LIST[1]
-  hairColorSelected = COLOROPTS_LIST[1]
-  shirtColorSelected = COLOROPTS_LIST[1]
+  bodyIt = 0
+  hairIt = 0
+  shirtIt = 0
+  bodyColorSelected = COLOROPTS_LIST[bodyIt]
+  hairColorSelected = COLOROPTS_LIST[hairIt]
+  shirtColorSelected = COLOROPTS_LIST[shirtIt]
 
   def __init__(self, width, height):
     super().__init__()

@@ -282,8 +282,8 @@ class GUI:
         hairLabel = self.__seperate_text_to_rows("Select Hair Color", self.screen_width/2, self.small_font)
         shirtLabel = self.__seperate_text_to_rows("Select Shirt Color", self.screen_width/2, self.small_font)
         bodyChoice = self.__seperate_text_to_rows(userCharacter.bodyColorSelected, self.screen_width/2, self.small_font)
-        hairChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
-        shirtChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
+        hairChoice = self.__seperate_text_to_rows(userCharacter.hairColorSelected, self.screen_width/2, self.small_font)
+        shirtChoice = self.__seperate_text_to_rows(userCharacter.shirtColorSelected, self.screen_width/2, self.small_font)
 
         bodyRight = Button(600, 175, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
         bodyLeft = Button(200, 175, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
@@ -317,12 +317,49 @@ class GUI:
                 if event.type == pygame.QUIT:
                     self.exit_func()
 
-                # if (
-                #     event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]
-                # ):
-                #         if bodyRight.check_click():
-                #             #functionaility
-            
+                 if (
+                     event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]
+                 ):
+                         if bodyRight.check_click():
+                             userCharacter.bodyIt += 1
+                             if userCharacter.bodyIt > 10: 
+                                userCharacter.bodyIt = 0
+
+                             userCharacter.bodyColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.bodyIt]
+                         if bodyLeft.check_click():
+                             userCharacter.bodyIt -= 1
+                             if userCharacter.bodyIt < 0:
+                                userCharacter.bodyIt = 10
+
+                             userCharacter.bodyColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.bodyIt]
+                         if hairRight.check_click():
+                             userCharacter.hairIt += 1 
+                             if userCharacter.hairIt > 10:
+                                userCharacter.hairIt = 0
+
+                             userCharacter.bodyColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.hairIt]
+                         if hairLeft.check_click():
+                             userCharacter.hairIt -= 1
+                             if userCharacter.hairIt < 0: 
+                                 userCharacter.hairIt = 10
+
+                             userCharacter.bodyColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.hairIt]
+                         if shirtRight.check_click(): 
+                             userCharacter.shirtIt += 1
+                             if userCharacter.shirtIt > 10: 
+                                 userCharacter.shirtIt = 0
+                             
+                             userCharacter.shirtIt = userCharacter.COLOROPTS_LIST[userCharacter.shirtIt]
+
+                         if shirtLeft.check_click(): 
+                             userCharacter.shirtIt -= 1
+                             if userCharacter.shirtIt < 0: 
+                                 userCharacter = 10
+                             
+                             userCharacter.shirtIt = userCharacter.COLOROPTS_LIST[userCharacter.shirtIt]
+                             
+                            
+
             self.__render_text_general(text_renders,10)
             self.__render_text_general(bodyLabel, 115)
             self.__render_text_general(hairLabel, 225)
