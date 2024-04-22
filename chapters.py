@@ -213,6 +213,10 @@ def chapter_cave():
             GUIInstance.text_until_enter("You follow the river and it leads nowhere.")
             GUIInstance.text_until_enter("You decide rest here for the night.")
             chapter_journey_end()
+        if chance_of_encounter == 1:
+            GUIInstance.text_until_enter("You follow the river and it leads to a waterfall.")
+            GUIInstance.text_until_enter("You decide to rest here for the night.")
+            game_over("You wake up and decide to head back home. You WIN the game! \U0001f3c6", win=True)
 
 def chapter_journey_end():
     answer = GUIInstance.ask_question("It is a new day, and you feel:", ["Hopeful","Lost"])
