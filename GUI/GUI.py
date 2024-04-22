@@ -270,6 +270,9 @@ class GUI:
         self.text_until_enter(f"Welcome {player_name} to this adventure!")
 
     def spriteCustomizeScreen(self):
+        userCharacter = self.characterSprites( 50,100)
+        userCharacter.rect.x = 100
+        userCharacter.rect.y = 100
         if not self.run_gui:
             print("no gui is supported for sprite customization")
             return 
@@ -278,7 +281,7 @@ class GUI:
         bodyLabel = self.__seperate_text_to_rows("Select Body Color", self.screen_width/2, self.small_font)
         hairLabel = self.__seperate_text_to_rows("Select Hair Color", self.screen_width/2, self.small_font)
         shirtLabel = self.__seperate_text_to_rows("Select Shirt Color", self.screen_width/2, self.small_font)
-        bodyChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
+        bodyChoice = self.__seperate_text_to_rows(userCharacter.bodyColorSelected, self.screen_width/2, self.small_font)
         hairChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
         shirtChoice = self.__seperate_text_to_rows("red", self.screen_width/2, self.small_font)
 
@@ -293,6 +296,7 @@ class GUI:
         contentView = pygame.transform.smoothscale(pygame.image.load("assets/images/landscape.png"), (self.screen_height* 1.778, self.screen_height))
 
         while True: 
+
             self.screen.blit(contentView,(0, 0))
             bodyRight.draw(self.screen)
             bodyRight.check_hover(pygame.mouse.get_pos())
@@ -323,9 +327,9 @@ class GUI:
             self.__render_text_general(bodyLabel, 115)
             self.__render_text_general(hairLabel, 225)
             self.__render_text_general(shirtLabel, 335)
-            self.__render_text_general(bodyChoice, 165)
-            self.__render_text_general(shirtChoice, 275)
-            self.__render_text_general(hairChoice, 385)
+            self.__render_text_general(bodyChoice, 150)
+            self.__render_text_general(shirtChoice, 265)
+            self.__render_text_general(hairChoice, 375)
             pygame.display.update()
 
     def chapter_directory(self):

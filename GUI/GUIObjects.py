@@ -1,5 +1,8 @@
 import pygame
+from pygame.locals import *
+from colorama import init, Fore
 pygame.init()
+
 
 class Button:
     def __init__(self, x, y, width, height, bg_color=(120, 120, 120), hover_color=(150, 150, 150),
@@ -338,6 +341,7 @@ class TextBox(object):
 
 
 class characterSprites(pygame.sprite.Sprite):
+  COLOROPTS_LIST=["Red", "Green", "Blue", "Yellow", "Purple", "Cyan", "Orange", "Burgundy", "Gray", "White", "Brown"]
   COLOROPTS = {
 	    "Red": (255, 0, 0),
         "Green": (0, 255, 0),
@@ -350,7 +354,11 @@ class characterSprites(pygame.sprite.Sprite):
         "Gray": (169, 169, 169),
         "White":(255, 255, 255), 
         "Brown": (150, 75, 0)
-  }
+        }
+  bodyColorSelected = COLOROPTS_LIST[1]
+  hairColorSelected = COLOROPTS_LIST[1]
+  shirtColorSelected = COLOROPTS_LIST[1]
+
   def __init__(self, width, height):
     super().__init__()
 
