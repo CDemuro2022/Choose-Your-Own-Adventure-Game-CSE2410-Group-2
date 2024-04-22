@@ -65,9 +65,5 @@ def main():
     GUIInstance.spriteCustomizeScreen()
 
 
-    #send to chapter directory here
-    GUIInstance.chapter_directory()
-
-
 if __name__ == "__main__":
     main()

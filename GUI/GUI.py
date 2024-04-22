@@ -356,6 +356,8 @@ class GUI:
                                 userCharacter.shirtIt = 10
                             
                             userCharacter.shirtColorSelected = userCharacter.COLOROPTS_LIST[userCharacter.shirtIt]
+                        if submit.check_click(): 
+                            GUIInstance.chapter_directory()
                              
                             
 
@@ -401,6 +403,8 @@ class GUI:
         
         while True:
             self.screen.blit(contentView, (0, scroll_y))
+
+            
 
             i = 0 # index for chapter_button_list
             for btn in chapter_button_list:

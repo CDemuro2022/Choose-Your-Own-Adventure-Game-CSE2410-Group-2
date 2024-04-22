@@ -361,6 +361,9 @@ class characterSprites(pygame.sprite.Sprite):
   bodyColorSelected = COLOROPTS_LIST[bodyIt]
   hairColorSelected = COLOROPTS_LIST[hairIt]
   shirtColorSelected = COLOROPTS_LIST[shirtIt]
+  bodyRGB = COLOROPTS[bodyColorSelected]
+  hairRGB = COLOROPTS[hairColorSelected]
+  shirtRGB = COLOROPTS[shirtColorSelected]
 
   def __init__(self, width, height):
     super().__init__()
@@ -391,21 +394,3 @@ class characterSprites(pygame.sprite.Sprite):
     pygame.draw.rect(self.image, shirt_color, [10, 30, 30, 20])
 
     screen.blit(self.image, self.rect)
-
-  def selectColor(self):
-    print("Available color options:")
-    for idx, color in enumerate(characterSprites.COLOROPTS.keys()):
-        print(f"{idx + 1}. {color}")
-
-    while True:
-        try:
-            choice = int(input("Select a color option: "))
-            if choice < 1 or choice > len(characterSprites.COLOROPTS):
-                raise ValueError("Invalid choice. Please select a number within the range.")
-            break
-        except ValueError as ve:
-            print(ve)
-
-    color_name = list(characterSprites.COLOROPTS.keys())[choice - 1]
-    return color_name, characterSprites.COLOROPTS[color_name]
-
