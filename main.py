@@ -62,9 +62,7 @@ def main():
         GUIInstance.set_params_no_gui()
 
     GUIInstance.start_screen()
-
-    #send to chapter directory here
-    GUIInstance.chapter_directory()
+    GUIInstance.spriteCustomizeScreen()
 
 
 if __name__ == "__main__":

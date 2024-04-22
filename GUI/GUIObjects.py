@@ -1,5 +1,8 @@
 import pygame
+from pygame.locals import *
+from colorama import init, Fore
 pygame.init()
+
 
 class Button:
     def __init__(self, x, y, width, height, bg_color=(120, 120, 120), hover_color=(150, 150, 150),
@@ -335,3 +338,67 @@ class TextBox(object):
             curse = self.render_area.copy()
             curse.topleft = self.render_rect.topleft
             surface.fill(self.font_color,(curse.right+1,curse.y,2,curse.h))
+
+
+class characterSprites(pygame.sprite.Sprite):
+  COLOROPTS_LIST=["Red", "Green", "Blue", "Yellow", "Purple", "Cyan", "Orange", "Burgundy", "Gray", "White", "Brown"]
+  COLOROPTS = {
+	    "Red": (255, 0, 0),
+        "Green": (0, 255, 0),
+        "Blue": (0, 0, 255),
+        "Yellow": (255, 255, 0),
+        "Purple": (128, 0, 128),
+        "Cyan": (0, 255, 255),
+        "Orange": (255, 165, 0),
+        "Burgundy": (128, 0, 32),
+        "Gray": (169, 169, 169),
+        "White":(255, 255, 255), 
+        "Brown": (150, 75, 0)
+        }
+  bodyIt = 0
+  hairIt = 0
+  shirtIt = 0
+  bodyColorSelected = COLOROPTS_LIST[bodyIt]
+  hairColorSelected = COLOROPTS_LIST[hairIt]
+  shirtColorSelected = COLOROPTS_LIST[shirtIt]
+
+
+
+  def __init__(self, width, height):
+    super().__init__()
+
+    self.image = pygame.Surface([width, height])
+
+    self.rect = self.image.get_rect()
+
+  def movement(self, x, y):
+    self.rect.x += x
+    self.rect.y += y
+    if self.rect.x > 800:
+        self.rect.x = 0
+    if self.rect.x < 0:
+        self.rect.x = 800
+
+    if self.rect.y > 600:
+        self.rect.y = 0
+    if self.rect.y < 0:
+        self.rect.y = 600
+
+  def controlMove(self):
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+            self.movement(-1, 0)
+    if keys[pygame.K_RIGHT]:
+            self.movement(1, 0)
+    if keys[pygame.K_UP]:
+            self.movement(0, -1)
+    if keys[pygame.K_DOWN]:
+            self.movement(0, 1)
+
+  def draw(self, screen, body_color, hair_color, shirt_color,):
+    pygame.draw.rect(self.image, body_color, [10, 50, 30,40])
+    pygame.draw.rect(self.image, body_color, [15, 15, 20, 20])
+    pygame.draw.rect(self.image, hair_color, [15, 10, 20, 10])
+    pygame.draw.rect(self.image, shirt_color, [10, 30, 30, 20])
+
+    screen.blit(self.image, self.rect)
