@@ -404,7 +404,13 @@ class GUI:
         while True:
             self.screen.blit(contentView, (0, scroll_y))
 
+            drawnCharacter = characterSprites(50,100)
+            drawnCharacter.rect.x = 100
+            drawnCharacter.rect.y = 100
+
+            drawnCharacter.controlMove()
             
+            drawnCharacter.draw(self.screen, drawnCharacter.bodyRGB, drawnCharacter.hairRGB, drawnCharacter.shirtRGB)
 
             i = 0 # index for chapter_button_list
             for btn in chapter_button_list:
