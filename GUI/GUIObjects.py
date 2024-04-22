@@ -374,6 +374,15 @@ class characterSprites(pygame.sprite.Sprite):
   def movement(self, x, y):
     self.rect.x += x
     self.rect.y += y
+    if self.rect.x > 800:
+        self.rect.x = 0
+    if self.rect.x < 0:
+        self.rect.x = 800
+
+    if self.rect.y > 600:
+        self.rect.y = 0
+    if self.rect.y < 0:
+        self.rect.y = 600
 
   def controlMove(self):
     keys = pygame.key.get_pressed()

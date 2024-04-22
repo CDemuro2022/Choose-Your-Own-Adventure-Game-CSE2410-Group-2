@@ -176,11 +176,6 @@ class GUI:
                 btn.draw(self.screen)
                 btn.check_hover(pygame.mouse.get_pos())
 
-            GUI.userCharacter.controlMove()
-            
-            GUI.userCharacter.draw(self.screen, GUI.bodyRGB, GUI.hairRGB, GUI.shirtRGB)
-
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.exit_func()
@@ -195,6 +190,11 @@ class GUI:
 
             # Render the text
             self.__render_text_center(text_renders)
+
+            GUI.userCharacter.controlMove()
+            
+            GUI.userCharacter.draw(self.screen, GUI.bodyRGB, GUI.hairRGB, GUI.shirtRGB)
+
             pygame.display.update()
 
 
