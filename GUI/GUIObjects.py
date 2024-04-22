@@ -362,14 +362,6 @@ class characterSprites(pygame.sprite.Sprite):
   hairColorSelected = COLOROPTS_LIST[hairIt]
   shirtColorSelected = COLOROPTS_LIST[shirtIt]
 
-  bodyRGB = COLOROPTS[bodyColorSelected]
-  hairRGB = COLOROPTS[hairColorSelected]
-  shirtRGB = COLOROPTS[shirtColorSelected]
-
-    
-  print("Body Color (RGB):", bodyRGB)
-  print("Hair Color (RGB):", hairRGB)
-  print("Shirt Color (RGB):", shirtRGB)
 
 
   def __init__(self, width, height):

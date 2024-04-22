@@ -19,6 +19,10 @@ class GUI:
     userCharacter.rect.x = 100
     userCharacter.rect.y = 100
 
+    bodyRGB = "Red"
+    hairRGB = "Red"
+    shirtRGB = "Red"
+
 
     def set_params_no_gui(self):
         self.run_gui = False
@@ -174,7 +178,7 @@ class GUI:
 
             GUI.userCharacter.controlMove()
             
-            GUI.userCharacter.draw(self.screen, GUI.userCharacter.bodyRGB, GUI.userCharacter.hairRGB, GUI.userCharacter.shirtRGB)
+            GUI.userCharacter.draw(self.screen, GUI.bodyRGB, GUI.hairRGB, GUI.shirtRGB)
 
 
             for event in pygame.event.get():
@@ -363,6 +367,9 @@ class GUI:
                             
                             GUI.userCharacter.shirtColorSelected = GUI.userCharacter.COLOROPTS_LIST[GUI.userCharacter.shirtIt]
                         if submit.check_click(): 
+                            GUI.bodyRGB = GUI.userCharacter.COLOROPTS[GUI.userCharacter.bodyColorSelected]
+                            GUI.hairRGB = GUI.userCharacter.COLOROPTS[GUI.userCharacter.hairColorSelected]
+                            GUI.shirtRGB = GUI.userCharacter.COLOROPTS[GUI.userCharacter.shirtColorSelected]
                             GUIInstance.chapter_directory()
                              
                             
