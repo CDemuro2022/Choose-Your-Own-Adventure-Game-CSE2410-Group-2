@@ -229,7 +229,7 @@ def chapter_journey_end():
                 GUIInstance.text_until_enter("You are found by a search party.")
                 game_over("You are saved and WIN the game! \U0001f3c6", win=True)
     elif answer == 1:
-        answer = GUIInstance.ask_question("What now?", ["Accept being lost","Embrace the \nwilderness as\n your new home:"])
+        answer = GUIInstance.ask_question("What now?", ["Accept \nbeing lost","Embrace the \nwilderness as\n your new home"])
         if answer == 0:
             game_over("You accept being lost and die. \U0001F480")
         if answer == 1:
