@@ -404,14 +404,6 @@ class GUI:
         while True:
             self.screen.blit(contentView, (0, scroll_y))
 
-            drawnCharacter = characterSprites(50,100)
-            drawnCharacter.rect.x = 100
-            drawnCharacter.rect.y = 100
-
-            drawnCharacter.controlMove()
-            
-            drawnCharacter.draw(self.screen, drawnCharacter.bodyRGB, drawnCharacter.hairRGB, drawnCharacter.shirtRGB)
-
             i = 0 # index for chapter_button_list
             for btn in chapter_button_list:
                 btn.set_y(original_button_y[i] + scroll_y)
@@ -419,6 +411,14 @@ class GUI:
                 btn.check_hover(pygame.mouse.get_pos())
                 i += 1 #increment index
             i = 0 #reset index
+
+            drawnCharacter = characterSprites(50,100)
+            drawnCharacter.rect.x = 100
+            drawnCharacter.rect.y = 100
+
+            drawnCharacter.controlMove()
+            
+            drawnCharacter.draw(self.screen, drawnCharacter.bodyRGB, drawnCharacter.hairRGB, drawnCharacter.shirtRGB)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
