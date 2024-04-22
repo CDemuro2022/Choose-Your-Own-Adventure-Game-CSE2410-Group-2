@@ -274,7 +274,10 @@ class GUI:
             print("no gui is supported for sprite customization")
             return 
         
-        text_renders = self.__seperate_text_to_rows("Customize Your Character", self.screen_width-50, self.font)
+        text_renders = self.__seperate_text_to_rows("Customize Your Character", self.screen_width-50, self.small_font)
+        bodyLabel = self.__seperate_text_to_rows("Select Body Color", self.screen_width/2, self.small_font)
+        hairLabel = self.__seperate_text_to_rows("Select Hair Color", self.screen_width/2, self.small_font)
+        shirtLabel = self.__seperate_text_to_rows("Select Shirt Color", self.screen_width/2, self.small_font)
 
         bodyRight = Button(600, 175, 100, 60, text=">", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
         bodyLeft = Button(200, 175, 100, 60, text="<", font=self.button_font, bg_color=(200, 200, 200), hover_color=(240, 240, 240))
@@ -314,7 +317,10 @@ class GUI:
                 #             #functionaility
             
             self.__render_text_general(text_renders,10)
-            pygame.display.update()
+            self.__render_text_general(bodyLabel, 150)
+            self.__render_text_general(hairLabel, 265)
+            self.__render_text_center(shirtLabel, 375)
+            pygame.display.upate()
 
     def chapter_directory(self):
         if not self.run_gui:
