@@ -32,11 +32,17 @@ class GUI:
 
         # find a font that can draw emojis
         fonts = pygame.sysfont.get_fonts()
-        if emojis := [font for font in fonts if "emoji" in font]:
-            self.font = pygame.font.SysFont(emojis[0], 60)
-            self.button_font = pygame.font.SysFont(emojis[0], 40)
-            self.small_font = pygame.font.SysFont(emojis[0], 30)
+        if sys.platform == "win32" or sys.platform == "cygwin":
+            if emojis := [font for font in fonts if "emoji" in font]:
+                self.font = pygame.font.SysFont(emojis[0], 60)
+                self.button_font = pygame.font.SysFont(emojis[0], 40)
+                self.small_font = pygame.font.SysFont(emojis[0], 30)
+            else:
+                print("Didn't find font with emojis")
 
+                self.font = pygame.font.Font(None, 60)
+                self.button_font = pygame.font.Font(None, 40)
+                self.small_font = pygame.font.Font(None, 30)
         else:
             print("Didn't find font with emojis")
 
